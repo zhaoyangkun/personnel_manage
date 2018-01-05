@@ -18,5 +18,6 @@
 <body>
 	<h1>hello spring mvc</h1>
 	<h1>${user.name}</h1>
+	<h1>${user.permissions }</h1>
 </body>
 </html>
