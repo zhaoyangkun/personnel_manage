@@ -16,5 +16,10 @@ public class UserServiceImpl implements UserService{
 	public User getUserById(Long id) {
 		return userMapper.selectByPrimaryKey(id);
 	}
+
+	@Override
+	public User getUserByPhone(int phone) {
+		return userMapper.selectByPhone(phone);
+	}
 	
 }

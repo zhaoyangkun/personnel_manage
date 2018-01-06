@@ -17,6 +17,13 @@
     id,nick_name,name,phone,password,gmt_created,gmt_modified,permissions,remark
   </sql>
   
+  <select id="selectByPhone">
+  		select
+  			<include refid="Base_Column_List" />
+  		from user
+  		where phone = #{phone,jdbcType=INTEGER}
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

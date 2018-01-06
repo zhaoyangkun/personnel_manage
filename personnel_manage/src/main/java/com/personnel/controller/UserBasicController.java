@@ -3,6 +3,7 @@ package com.personnel.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 
 import com.personnel.entity.User;
@@ -16,10 +17,20 @@ public class UserBasicController {
 	
 	@RequestMapping("/welcome")
 	public String loginDisp(Model model) {
-		Long id = (long) 1;
-		User user = userService.getUserById(id);
-		model.addAttribute("user", user);
-		System.out.println(user.toString());	
 		return "login";
+	}
+	
+	@RequestMapping("/index")
+	public String indexDisp() {
+		return "index";
+	}
+	
+	@RequestMapping("/login")
+	@ResponseBody
+	public int login(int phone,String password) {
+		System.out.println(phone + " " + password);
+		User user = userService.getUserByPhone(phone);
+		System.out.println(user.toString());	
+		return 0;
 	}
 }
