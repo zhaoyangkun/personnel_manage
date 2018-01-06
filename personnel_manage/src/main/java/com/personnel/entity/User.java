@@ -10,7 +10,7 @@ public class User implements Serializable {
 
     private String name;
 
-    private Integer phone;
+    private String phone;
 
     private String password;
 
@@ -48,11 +48,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
