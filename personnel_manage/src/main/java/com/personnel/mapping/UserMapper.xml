@@ -17,7 +17,7 @@
     id,nick_name,name,phone,password,gmt_created,gmt_modified,permissions,remark
   </sql>
   
-  <select id="selectByPhone">
+  <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
   		select
   			<include refid="Base_Column_List" />
   		from user

@@ -36,7 +36,7 @@
 	      <div class='icon'>
 	        <img alt="" src='<%=basePath %>/img/login/user_icon_copy.png'>
 	      </div>
-	      <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value="123456"/>
+	      <input name="phone" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
 	        <div class='validation'>
 	          <img alt="" src='<%=basePath %>/img/login/tick.png'>
 	        </div>
@@ -45,7 +45,7 @@
 	      <div class='icon'>
 	        <img alt="" src='<%=basePath %>/img/login/lock_icon_copy.png'>
 	      </div>
-	      <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">
+	      <input name="password" placeholder='密码' maxlength="16" type='text' autocomplete="off">
 	      <div class='validation'>
 	        <img alt="" src='<%=basePath %>/img/login/tick.png'>
 	      </div>
@@ -92,10 +92,6 @@
 	<script type="text/javascript">
 		var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
 		var ajaxmockjax = 0;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
-		//默认账号密码
-		
-		var truelogin = "123456";
-		var truepwd = "123456";
 		
 		var CodeVal = 0;
 	    Code();
@@ -128,7 +124,7 @@
 	        dotColor: '#E8DFE8',
 	        lineColor: '#133b88'
 	    });
-	    $('input[name="pwd"]').focus(function () {
+	    $('input[name="password"]').focus(function () {
 	        $(this).attr('type', 'password');
 	    });
 	    $('input[type="text"]').focus(function () {
@@ -137,7 +133,7 @@
 	    $('input[type="text"],input[type="password"]').blur(function () {
 	        $(this).prev().animate({ 'opacity': '.5' }, 200);
 	    });
-	    $('input[name="login"],input[name="pwd"]').keyup(function () {
+	    $('input[name="phone"],input[name="password"]').keyup(function () {
 	        var Len = $(this).val().length;
 	        if (!$(this).val() == '' && Len >= 5) {
 	            $(this).next().animate({
@@ -153,52 +149,79 @@
 	    });
 	    var open = 0;
 	    layui.use('layer', function () {
-/*  			var msgalert = '默认账号:' + truelogin + '<br/> 默认密码:' + truepwd;
-    		var index = layer.alert(msgalert, { icon: 6, time: 4000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });
- 			layer.style(index, {
-				color: '#777'
-			}); */
 	        //非空验证
 	        $('input[type="button"]').click(function () {
-	            var login = $('input[name="login"]').val();
-	            var pwd = $('input[name="pwd"]').val();
+	            var phone = $('input[name="phone"]').val();
+	            var password = $('input[name="password"]').val();
 	            var code = $('input[name="code"]').val();
-	            if (login == '') {
+	            if (phone == '') {
 	                ErroAlert('请输入您的账号');
-	            } else if (pwd == '') {
+	            } else if (password == '') {
 	                ErroAlert('请输入密码');
 	            } else if (code == '' || code.length != 4) {
 	                ErroAlert('输入验证码');
 	            } else {
-	                //认证中..
-	                $('.login').addClass('test'); //倾斜特效
-	                setTimeout(function () {
-	                    $('.login').addClass('testtwo'); //平移特效
-	                }, 300);
-	                setTimeout(function () {
-	                    $('.authent').show().animate({ right: -320 }, {
-	                        easing: 'easeOutQuint',
-	                        duration: 600,
-	                        queue: false
-	                    });
-	                    $('.authent').animate({ opacity: 1 }, {
-	                        duration: 200,
-	                        queue: false
-	                    }).addClass('visible');
-	                }, 500);
-
-	                //登录
-	                var JsonData = { login: login, pwd: pwd, code: code };
-					//此处做为ajax内部判断
-					var url = "";
-					if(JsonData.login == truelogin && JsonData.pwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()){
-						url = "Ajax/Login";
-					}else{
-						url = "Ajax/LoginFalse";
-					}
+	                
 					
+	                if(code.toUpperCase() == CodeVal.toUpperCase()){			//验证码转成大写验证
+	                	 //1.$.ajax带json数据的异步请求 :登录验证
+		                $.ajax( {  
+		                  url:"${pageContext.request.contextPath }/basic/login",	                   
+		                  type:'post', 
+		                  data:{"phone":phone,"password":password}, 
+		                  cache:false,  
+		                  dataType:'json',  
+		                  success:function(data) {  
+			               		if(data == 1){    
+			                    	layer.msg("登录成功！");  	
+			                    	check_wait();
+			                    	window.location.href = '${pageContext.request.contextPath }/basic/index';
+			                    }else if(data == 2){  
+			                    	layer.msg("登录失败！");  	
+			                    }else{
+			                    	layer.msg("不存在该账号！");
+			                    }
+		                   },  
+		                   error : function() {  
+		                   		layer.msg('异常！');  
+		                   }  
+		                });	             	                
+	                } 
+	                else{
+	                	ErroAlert("验证码错误！");
+	                }
+	               
+	                
+	                function check_wait(){
+	                    setTimeout(function () {
+                            $('.authent').show().animate({ right: 90 }, {
+                                easing: 'easeOutQuint',
+                                duration: 600,
+                                queue: false
+                            });
+                            $('.authent').animate({ opacity: 0 }, {
+                                duration: 200,
+                                queue: false
+                            }).addClass('visible');
+                            $('.login').removeClass('testtwo'); //平移特效
+                        }, 2000);
+                        setTimeout(function () {
+                            $('.authent').hide();
+                            $('.login').removeClass('test');
+                            if (data.Status == 'ok') {
+                                //登录成功
+                                $('.login div').fadeOut(100);
+                                $('.success').fadeIn(1000);
+                                $('.success').html(data.Text);
+								//跳转操作												
+                            } else {
+                                AjaxErro(data);
+                            }
+                        }, 2400);
+	                }
 					
-	                AjaxPost
+								
+	                /* AjaxPost
 	                (
 	                	url, 
 	                	JsonData,	                              
@@ -233,36 +256,10 @@
 	                                            AjaxErro(data);
 	                                        }
 	                                    }, 2400);
-	                                })
-	           			 }
+	                                }) */
+	           	 }
 	        })
 	    })
-/* 	    var fullscreen = function () {
-	        elem = document.body;
-	        if (elem.webkitRequestFullScreen) {
-	            elem.webkitRequestFullScreen();
-	        } else if (elem.mozRequestFullScreen) {
-	            elem.mozRequestFullScreen();
-	        } else if (elem.requestFullScreen) {
-	            elem.requestFullscreen();
-	        } else {
-	            //浏览器不支持全屏API或已被禁用  
-	        }
-	    }   */
-		if(ajaxmockjax == 1){
-			$.mockjax({  
-				url: 'Ajax/Login',  
-				status: 200,  
-				responseTime: 50,          
-				responseText: {"Status":"ok","Text":"登录成功<br /><br />欢迎回来"}  
-			}); 
-			$.mockjax({  
-				url: 'Ajax/LoginFalse',  
-				status: 200,  
-				responseTime: 50,          
-				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
-			});   
-		}
     </script>
 </body>
 </html>

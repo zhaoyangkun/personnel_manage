@@ -8,16 +8,21 @@ import org.springframework.ui.Model;
 
 import com.personnel.entity.User;
 import com.personnel.service.UserService;
-import com.personnel.utils.Contants;
+import com.personnel.utils.ToMD5;
 
 @Controller
 @RequestMapping("/basic")
 public class UserBasicController {
 	@Autowired UserService userService;
 	
-	@RequestMapping("/welcome")
+	@RequestMapping("/loginDisp")
 	public String loginDisp(Model model) {
 		return "login";
+	}
+	
+	@RequestMapping("/deskTop")
+	public String deskTop() {
+		return "welcome";
 	}
 	
 	@RequestMapping("/index")
@@ -27,10 +32,19 @@ public class UserBasicController {
 	
 	@RequestMapping("/login")
 	@ResponseBody
-	public int login(int phone,String password) {
+	public int login(String phone,String password) {
+		int flag = 0;
 		System.out.println(phone + " " + password);
 		User user = userService.getUserByPhone(phone);
 		System.out.println(user.toString());	
-		return 0;
+		if(user != null) {
+			if( user.getPassword().equals(ToMD5.md5Password(password)) ) {
+				flag=1;
+			}
+			else {
+				flag=2;
+			}
+		}
+		return flag;	
 	}
 }

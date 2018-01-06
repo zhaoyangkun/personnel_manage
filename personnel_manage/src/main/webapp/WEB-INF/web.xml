@@ -6,7 +6,7 @@
     <display-name>personnel_manage</display-name>  
       
     <welcome-file-list>  
-        <welcome-file>basic/welcome</welcome-file>  
+        <welcome-file>basic/loginDisp</welcome-file>  
     </welcome-file-list>  
       
     <!-- 加载spring bean -->  
@@ -47,7 +47,7 @@
     
     <servlet-mapping>
     	<servlet-name>SpringMVC</servlet-name>  
-        <url-pattern>/basic/welcome</url-pattern> 
+        <url-pattern>/basic/loginDisp</url-pattern> 
     </servlet-mapping>
     
     <servlet-mapping>  

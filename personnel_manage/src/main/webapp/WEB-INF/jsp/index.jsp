@@ -1,15 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@page import="java.util.HashMap" %>
-<%@page import="java.util.Map" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-%>	
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<%@page import="java.util.HashMap" %>
+	<%@page import="java.util.Map" %>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -23,11 +18,11 @@
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="<%=basePath %>/H-ui/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath %>/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath %>/H-ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath %>/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="<%=basePath %>/H-ui/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/H-ui/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/H-ui/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/H-ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/H-ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/H-ui/static/h-ui.admin/css/style.css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -82,8 +77,8 @@
 </div>
 </header>
 <aside class="Hui-aside">
-	<div class="menu_dropdown bk_2">
-		<dl id="menu-article">
+<div class="menu_dropdown bk_2">
+<!-- 	<dl id="menu-article">
 			<dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -132,7 +127,7 @@
 			</ul>
 		</dd>
 	</dl>
-		<dl id="menu-admin">
+	<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -167,7 +162,81 @@
 					<li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
 			</ul>
 		</dd>
+	</dl> -->
+	<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i>用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
+			</ul>
+		</dd>
 	</dl>
+	
+	<dl id="menu-member">
+			<dt><i class="Hui-iconfont">&#xe60d;</i>员工管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="member-list.html" data-title="员工基本信息管理" href="javascript:;">员工基本信息管理</a></li>
+					<li><a data-href="member-del.html" data-title="员工入职信息管理" href="javascript:;">员工入职信息管理</a></li>
+				</ul>
+		</dd>
+	</dl>
+	
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i>工资管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="article-list.html" data-title="工资管理" href="javascript:void(0)">工资管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i>奖惩记录管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="article-list.html" data-title="奖惩记录管理" href="javascript:void(0)">奖惩记录管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<dl id="menu-article">
+			<dt><i class="Hui-iconfont">&#xe616;</i>考勤信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="article-list.html" data-title="考勤信息管理" href="javascript:void(0)">考勤信息管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<dl id="menu-member">
+			<dt><i class="Hui-iconfont">&#xe60d;</i>调动信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="member-list.html" data-title="调动信息管理" href="javascript:;">调动信息管理</a></li>
+				</ul>
+		</dd>
+	</dl>
+	
+	<dl id="menu-comments">
+			<dt><i class="Hui-iconfont">&#xe622;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="部门管理" href="javascript:;">部门管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	
+	<dl id="menu-comments">
+			<dt><i class="Hui-iconfont">&#xe622;</i> 职务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="部门管理" href="javascript:;">职务管理</a></li>
+			</ul>
+		</dd>
+	</dl>
+	
 </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -176,7 +245,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的桌面" data-href="">我的桌面</span>
+					<span title="我的桌面" data-href="deskTop">我的桌面</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -185,7 +254,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="welcome.html"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="deskTop"></iframe>
 	</div>
 </div>
 </section>
@@ -197,13 +266,13 @@
 </ul>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="<%=basePath %>/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="<%=basePath %>/H-ui/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="<%=basePath %>/H-ui/static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="<%=basePath %>/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="${pageContext.request.contextPath }/H-ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath }/H-ui/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/H-ui/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/H-ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="<%=basePath %>/H-ui/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/H-ui/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
 $(function(){
 	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
@@ -267,5 +336,7 @@ function member_add(title,url,w,h){
 
 
 </script> 
+
+
 </body>
 </html>

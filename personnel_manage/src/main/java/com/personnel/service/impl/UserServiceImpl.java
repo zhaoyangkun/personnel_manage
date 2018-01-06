@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserByPhone(int phone) {
+	public User getUserByPhone(String phone) {
 		return userMapper.selectByPhone(phone);
 	}
 	
