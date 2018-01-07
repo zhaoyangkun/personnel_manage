@@ -43,6 +43,7 @@ public class LoginFilter implements Filter {
 			chain.doFilter(request, response);
 		}
 		else {
+/*			System.out.println("user == null " + basePath + "/basic/loginDisp");*/
 			servletResponse.sendRedirect(basePath + "/basic/loginDisp");
 		}
 	}

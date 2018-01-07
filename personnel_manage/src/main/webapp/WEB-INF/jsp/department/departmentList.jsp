@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.HashMap" %>
 <%@page import="java.util.Map" %>
+<%@page import="com.personnel.entity.User" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+	User user = (User)session.getAttribute("user");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -36,7 +37,21 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 部门管理 <span class="c-gray en">&gt;</span> 部门列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray"> 
+<<<<<<< HEAD
 		<span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="department_add('添加部门','<%=basePath%>/department/departmentAddDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a> </span>
+=======
+		<%if(user.getpermissions() == 1){ %>
+			<span class="l"> 
+				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+				<a class="btn btn-primary radius" href="javascript:;" onclick="department_add('添加部门','<%=basePath%>/department/departmentAddDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a> 
+			</span>
+		<%} else if(user.getpermissions() == 2){%>
+			<span class="l"> 
+				<a href="javascript:;"  class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+				<a class="btn btn-primary radius" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a> 
+			</span>
+		<% }%>
+>>>>>>> branch 'master' of https://github.com/zhaoyangkun/personnel_manage.git
 		<input type="text" class="input-text" style="width:250px" placeholder="请输入关键字" id="search" name="" value="" />
     	<button type="button" class="btn btn-success" id="search" name="search" onclick="search()"><i class="icon-search"></i> 搜索</button> 
 		<span class="r">共有数据：<strong>${totalNumber }</strong> 条</span> 
@@ -66,8 +81,19 @@
 					<td>${list.number }</td>
 					<td>${list.remark }</td>
 					<td class="f-14">
+<<<<<<< HEAD
 						<a title="编辑" href="javascript:;" onclick="department_edit('部门编辑','<%=basePath%>/department/editDepartmentDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
 						<a title="删除" href="javascript:;" onclick="department_del(this,${list.id })" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+=======
+						<c:if test="${sessionScope.user.permissions == 1 }">
+							<a title="编辑" href="javascript:;" onclick="department_edit('部门编辑','<%=basePath%>/department/editDepartmentDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+							<a title="删除" href="javascript:;" onclick="department_del(this,${list.id })" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						</c:if>
+						<c:if test="${sessionScope.user.permissions == 2 }">
+							<a title="编辑" href="javascript:;" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+							<a title="删除" href="javascript:;" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+						</c:if>						
+>>>>>>> branch 'master' of https://github.com/zhaoyangkun/personnel_manage.git
 					</td>
 				</tr>
 			</c:forEach>
