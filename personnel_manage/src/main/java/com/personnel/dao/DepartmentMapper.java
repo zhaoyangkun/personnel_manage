@@ -1,6 +1,9 @@
 package com.personnel.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.personnel.entity.Department;
 
 public interface DepartmentMapper {
@@ -18,4 +21,6 @@ public interface DepartmentMapper {
     int updateByPrimaryKey(Department record);
     
     List<Department> getDepartmentListAll();
+    
+    List<Department> getDepartmentListByKey(@Param(value="key")String key);
 }

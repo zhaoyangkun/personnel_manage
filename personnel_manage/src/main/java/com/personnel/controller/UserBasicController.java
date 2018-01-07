@@ -16,12 +16,8 @@ import com.personnel.utils.ToMD5;
 @Controller
 @RequestMapping("/basic")
 public class UserBasicController {
-	@Autowired UserService userService;
 	
-/*	@RequestMapping("/departmentList")
-	public void departmentList() {
-		System.out.println("11223344");
-	}*/
+	@Autowired UserService userService;
 	
 	@RequestMapping("/loginDisp")
 	public String loginDisp(Model model) {
@@ -47,10 +43,10 @@ public class UserBasicController {
 		if(user != null) {														//如果存在该用户
 			if( user.getPassword().equals(ToMD5.md5Password(password)) ) {		//如果该密码正确
 				flag = 1;
-				HttpSession session = request.getSession(true);						//创建登录用户的session
+				HttpSession session = request.getSession(true);					//创建登录用户的session
 				session.setAttribute("user", user);								
 			}
-			else {																//不存在该用户
+			else {																//密码不正确
 				flag = 2;
 			}
 		}
