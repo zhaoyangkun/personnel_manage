@@ -18,6 +18,11 @@ import com.personnel.utils.ToMD5;
 public class UserBasicController {
 	@Autowired UserService userService;
 	
+/*	@RequestMapping("/departmentList")
+	public void departmentList() {
+		System.out.println("11223344");
+	}*/
+	
 	@RequestMapping("/loginDisp")
 	public String loginDisp(Model model) {
 		return "login";

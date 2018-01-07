@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@page import="java.util.HashMap" %>
-	<%@page import="java.util.Map" %>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@page import="java.util.HashMap" %>
+<%@page import="java.util.Map" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
+%>	
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -223,7 +228,7 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="部门管理" href="javascript:;">部门管理</a></li>
+					<li><a data-href="<%=basePath %>/depart/departmentList" data-title="部门管理" href="javascript:;">部门管理</a></li>
 			</ul>
 		</dd>
 	</dl>
