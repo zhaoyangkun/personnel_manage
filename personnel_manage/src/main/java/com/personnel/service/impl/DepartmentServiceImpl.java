@@ -19,4 +19,29 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return departmentMapper.getDepartmentListAll();
 	}
 
+	@Override
+	public int addDepartment(Department record) {
+		return departmentMapper.insertSelective(record);
+	}
+
+	@Override
+	public int deleteDepartment(Long id) {
+		return departmentMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public Department getDepartmentById(Long id) {
+		return departmentMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateDepartment(Department record) {
+		return departmentMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Override
+	public List<Department> getDepartmentListByKey(String key) {
+		return departmentMapper.getDepartmentListByKey(key);
+	}
+
 }

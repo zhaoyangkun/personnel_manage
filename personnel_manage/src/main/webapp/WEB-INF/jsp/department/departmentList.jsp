@@ -35,7 +35,13 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 部门管理 <span class="c-gray en">&gt;</span> 部门列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','admin-role-add.html','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray"> 
+		<span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="department_add('添加部门','<%=basePath%>/department/departmentAddDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a> </span>
+		<input type="text" class="input-text" style="width:250px" placeholder="请输入关键字" id="search" name="" value="" />
+    	<button type="button" class="btn btn-success" id="search" name="search" onclick="search()"><i class="icon-search"></i> 搜索</button> 
+		<span class="r">共有数据：<strong>${totalNumber }</strong> 条</span> 
+	</div>
+	
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr>
@@ -54,12 +60,15 @@
 		<tbody>
 			<c:forEach items="${departmentList}" var="list" varStatus="state">
 				<tr class="text-c">
-					<td><input type="checkbox" value="" name=""></td>
+					<td><input type="checkbox" value="${list.id }" name="id"></td>
 					<td>${list.name }</td>
 					<td>${list.manager }</td>
 					<td>${list.number }</td>
 					<td>${list.remark }</td>
-					<td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('角色编辑','admin-role-add.html','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="f-14">
+						<a title="编辑" href="javascript:;" onclick="department_edit('部门编辑','<%=basePath%>/department/editDepartmentDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+						<a title="删除" href="javascript:;" onclick="department_del(this,${list.id })" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -74,31 +83,63 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="<%=basePath %>/H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-/*管理员-角色-添加*/
-function admin_role_add(title,url,w,h){
-	layer_show(title,url,w,h);
+
+/*部门-添加*/
+function department_add(title,url,w,h){
+	var index = layer.open({
+		type:2,
+		title:title,
+		content:url,
+		end: function () {
+			location.reload();
+		}
+	})
+	layer.full(index);
 }
-/*管理员-角色-编辑*/
-function admin_role_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
+
+/*部门编辑*/
+function department_edit(title,url,id,w,h){
+	var index = layer.open({
+		type:2,
+		title:title,
+		content:url,
+		end: function () {
+			location.reload();
+		}
+	})
+	layer.full(index);
 }
-/*管理员-角色-删除*/
-function admin_role_del(obj,id){
-	layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
+
+/*部门删除*/
+function department_del(obj,id){
+	layer.confirm('确认要删除部门吗？',function(index){
 		$.ajax({
-			type: 'POST',
-			url: '',
-			dataType: 'json',
+			type:'POST',
+			url:'${pageContext.request.contextPath}/department/deleteDepartment',
+			data:{"id":id},
+			dataType:'json',
 			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
+				if(data == 1){
+					$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:6,time:1000});
+				}else{
+					layer.msg('删除失败!',{icon:5,time:1000});
+				}
+				
 			},
 			error:function(data) {
-				console.log(data.msg);
+				layer.msg("删除异常！",{icon:5,time:1000});
 			},
 		});		
 	});
 }
+
+/*查询*/
+function search(){
+	var key = $("#search").val();
+	window.location.href="${pageContext.request.contextPath}/department/search?key=" + key; 
+}
+
 </script>
 </body>
 </html>
