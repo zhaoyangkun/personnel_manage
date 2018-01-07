@@ -10,14 +10,20 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  
-  
+ 
   <sql id="Base_Column_List">
     id, name, manager, number, gmt_created, gmt_modified, remark
   </sql>
   
-  <select id="getDepartmentListAll" resultMap="BaseResultMap" >
-   select * from department
+  <select id="getDepartmentListAll" resultMap="BaseResultMap">
+  	select * from department
+  </select>
+  
+  <select id="getDepartmentListByKey" resultMap="BaseResultMap">
+  	select * from department as dp 
+  	<if test="key != null and key != ''">
+  		where dp.name like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or dp.manager like CONCAT('%',#{key,jdbcType=VARCHAR},'%')
+  	</if>	
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

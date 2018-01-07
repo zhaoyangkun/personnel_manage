@@ -228,7 +228,7 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="<%=basePath %>/depart/departmentList" data-title="部门管理" href="javascript:;">部门管理</a></li>
+					<li><a data-href="<%=basePath %>/department/departmentList" data-title="部门管理" href="javascript:;">部门管理</a></li>
 			</ul>
 		</dd>
 	</dl>
