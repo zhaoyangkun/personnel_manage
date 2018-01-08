@@ -18,6 +18,13 @@
   	select * from job 
   </select>
   
+    <select id="getJobListByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from job 
+  	<if test = "key !=null and key !=''">
+  		where job.name like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or job.introduce like CONCAT('%',#{key,jdbcType=VARCHAR},'%')
+  	</if>
+  </select>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
