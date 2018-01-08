@@ -31,22 +31,22 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>职务列表</title>
+<title>奖惩记录管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 职务管理 <span class="c-gray en">&gt;</span> 职务列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>奖惩记录管理 <span class="c-gray en">&gt;</span>奖惩记录管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray"> 
  		<%if(user.getpermissions() == 1){ %>
 			<span class="l"> 
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-				<a class="btn btn-primary radius" href="javascript:;" onclick="job_add('添加职务','<%=basePath%>/job/jobAddDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加职务</a> 
+				<a class="btn btn-primary radius" href="javascript:;" onclick="reward_add('添加奖惩记录','<%=basePath%>/reward/rewardAddDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加奖惩记录</a> 
 			</span>
 		<%}%>
 		<%if(user.getpermissions() == 2){ %>
 			<span class="l"> 
 				<a href="javascript:;"  class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-				<a class="btn btn-primary radius" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加职务</a> 
+				<a class="btn btn-primary radius" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加奖惩记录</a> 
 			</span>
 		<% }%>
 		<input type="text" class="input-text" style="width:250px" placeholder="请输入关键字" id="search" name="" value="" />
@@ -57,28 +57,38 @@
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="5">职务管理</th>
+				<th scope="col" colspan="10">奖惩记录</th>
 			</tr>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" value="" name=""></th>
-				<th width="60">职务名称</th>
- 				<th width="70">职务简介</th>		
-				<th width="60">备注</th>
-				<th width="70">操作</th>
+				<th width="50">员工号</th>
+ 				<th width="50">姓名</th>		
+				<th width="60">奖/惩</th>
+				<th width="70">奖惩内容</th>
+				<th width="70">奖惩原因</th>
+				<th width="50">奖惩金额</th>
+				<th width="60">批准部门</th>
+				<th width="60">负责人</th>
+				<th width="60"></th>
 			</tr>
 		</thead>
 		
 		<tbody>
-			<c:forEach items="${jobList}" var="list" varStatus="state">
+			<c:forEach items="${rewardList}" var="list" varStatus="state">
 				<tr class="text-c">
 					<td><input type="checkbox" value="${list.id }" name="id"></td>
+					<td>${list.empId }</td>
 					<td>${list.name }</td>
-					<td>${list.introduce }</td>
+					<td>${list.reward }</td>
+					<td>${list.content }</td>
+					<td>${list.amount }</td>
+					<td>${list.approvalDep }</td>
+					<td>${list.head }</td>
 					<td>${list.remark }</td>
 					<td class="f-14">
 						<c:if test="${sessionScope.user.permissions == 1 }">
-							<a title="编辑" href="javascript:;" onclick="job_edit('职务编辑','<%=basePath%>/job/editJobDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-							<a title="删除" href="javascript:;" onclick="job_del(this,${list.id })" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							<a title="编辑" href="javascript:;" onclick="reward_edit('奖惩记录编辑','<%=basePath%>/reward/editRewardDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+							<a title="删除" href="javascript:;" onclick="reward_del(this,${list.id })" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 						</c:if>
 						<c:if test="${sessionScope.user.permissions == 2 }">
 							<a title="编辑" href="javascript:;" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
@@ -101,7 +111,7 @@
 <script type="text/javascript">
 
 /*职务-添加*/
-function job_add(title,url,w,h){
+function reward_add(title,url,w,h){
 	var index = layer.open({
 		type:2,
 		title:title,
@@ -114,7 +124,7 @@ function job_add(title,url,w,h){
 }
 
 /*职务编辑*/
-function job_edit(title,url,id,w,h){
+function reward_edit(title,url,id,w,h){
 	var index = layer.open({
 		type:2,
 		title:title,
@@ -127,11 +137,11 @@ function job_edit(title,url,id,w,h){
 }
 
 /*职务删除*/
-function job_del(obj,id){
-	layer.confirm('确认要删除职务吗？',function(index){
+function reward_del(obj,id){
+	layer.confirm('确认要删除奖惩记录吗？',function(index){
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/job/deletejob',
+			url:'${pageContext.request.contextPath}/reward/deleteReward',
 			data:{"id":id},
 			dataType:'json',
 			success: function(data){
@@ -153,7 +163,7 @@ function job_del(obj,id){
 /*查询*/
 function search(){
 	var key = $("#search").val();
-	window.location.href="${pageContext.request.contextPath}/job/search?key=" + key; 
+	window.location.href="${pageContext.request.contextPath}/reward/search?key=" + key; 
 }
 
 </script>

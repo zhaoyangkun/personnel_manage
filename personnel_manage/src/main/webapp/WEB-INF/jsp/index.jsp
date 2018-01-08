@@ -201,7 +201,7 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i>奖惩记录管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="奖惩记录管理" href="javascript:void(0)">奖惩记录管理</a></li>
+					<li><a data-href="<%=basePath %>/reward/rewardList" data-title="奖惩记录管理" href="javascript:void(0)">奖惩记录管理</a></li>
 			</ul>
 		</dd>
 	</dl>
