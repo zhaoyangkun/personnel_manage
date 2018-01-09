@@ -139,11 +139,6 @@ function admin_stop(obj,id){
 				layer.msg('停用异常!',{icon: 5,time:1000});
 			}
 		});
-/* 		//此处请求后台程序，下方是成功后的前台处理……		
-		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
-		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000}); */
 	});
 }
 
