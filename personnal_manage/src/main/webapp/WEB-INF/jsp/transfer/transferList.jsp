@@ -31,10 +31,9 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>部门列表</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 调动信息管理 <span class="c-gray en">&gt;</span> 调动信息列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>  <span class="c-gray en">&gt;</span> 部门列表  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray"> 
  		<%if(user.getpermissions() == 1){ %>
@@ -57,14 +56,20 @@
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr>
-				<th scope="col" colspan="6">部门管理</th>
+				<th scope="col" colspan="11">调动信息管理</th>
 			</tr>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" value="" name=""></th>
-				<th width="60">部门名称</th>
- 				<th width="60">经理</th>		
-				<th width="40">部门人数</th>
-				<th width="60">备注</th>
+				<th width="40">员工</th>
+ 				<th width="60">调动前部门</th>		
+				<th width="60">调动后部门</th>
+				<th width="60">调动前职务</th>	
+				<th width="60">调动后职务</th>	
+				<th width="110">调动理由</th>	
+				<th width="60">员工</th>
+				<th width="20">审核结果</th>
+				<th width="40">审核人</th>
+				<th width="40">备注</th>
 				<th width="70">操作</th>
 			</tr>
 		</thead>
@@ -73,10 +78,15 @@
 			<c:forEach items="${departmentList}" var="list" varStatus="state">
 				<tr class="text-c">
 					<td><input type="checkbox" value="${list.id }" name="id"></td>
-					<td>${list.name }</td>
-					<td>${list.manager }</td>
-					<td>${list.number }</td>
-					<td>${list.remark }</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 					<td class="f-14">
 						<c:if test="${sessionScope.user.permissions == 1 }">
 							<a title="编辑" href="javascript:;" onclick="department_edit('部门编辑','<%=basePath%>/department/editDepartmentDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
@@ -102,8 +112,7 @@
 <script type="text/javascript" src="<%=basePath %>/H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 
-/*部门-添加*/
-function department_add(title,url,w,h){
+function transfer_add(title,url,w,h){
 	var index = layer.open({
 		type:2,
 		title:title,
@@ -115,8 +124,7 @@ function department_add(title,url,w,h){
 	layer.full(index);
 }
 
-/*部门编辑*/
-function department_edit(title,url,id,w,h){
+function transfer_edit(title,url,id,w,h){
 	var index = layer.open({
 		type:2,
 		title:title,
@@ -128,8 +136,7 @@ function department_edit(title,url,id,w,h){
 	layer.full(index);
 }
 
-/*部门删除*/
-function department_del(obj,id){
+function transfer_del(obj,id){
 	layer.confirm('确认要删除部门吗？',function(index){
 		$.ajax({
 			type:'POST',
@@ -152,7 +159,6 @@ function department_del(obj,id){
 	});
 }
 
-/*查询*/
 function search(){
 	var key = $("#search").val();
 	window.location.href="${pageContext.request.contextPath}/department/search?key=" + key; 

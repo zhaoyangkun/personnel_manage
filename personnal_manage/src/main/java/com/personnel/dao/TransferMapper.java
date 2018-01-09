@@ -1,5 +1,7 @@
 package com.personnel.dao;
 
+import java.util.List;
+
 import com.personnel.entity.Transfer;
 
 public interface TransferMapper {
@@ -14,4 +16,6 @@ public interface TransferMapper {
     int updateByPrimaryKeySelective(Transfer record);
 
     int updateByPrimaryKey(Transfer record);
+    
+    List<Transfer> getTransferListAll();
 }
