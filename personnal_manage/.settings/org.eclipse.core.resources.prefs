@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/jsp/department/departmentAdd.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/department/departmentEdit.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/department/departmentList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/index.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/userManage/authorityList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/userManage/roleEdit.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/userManage/roleList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/welcome.jsp=UTF-8
+encoding/<project>=UTF-8
