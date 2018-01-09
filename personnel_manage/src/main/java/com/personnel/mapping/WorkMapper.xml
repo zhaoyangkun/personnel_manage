@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.personnel.dao.WorkMapper" >
+  <resultMap id="BaseResultMap" type="com.personnel.entity.Work" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="dep_id" property="depId" jdbcType="BIGINT" />
+    <result column="dep_job" property="depJob" jdbcType="BIGINT" />
+    <result column="gmt_created" property="gmtCreated" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, date, dep_id, dep_job, gmt_created, gmt_modified, remark
+  </sql>
+   <select id="getInfoListByPage" resultMap="BaseResultMap" >
+  select * from work where name like #{key} limit #{startPos},#{pageSize} 
+  </select>
+   <select id="getInfoListByPageDep" resultMap="BaseResultMap" >
+  select * from work where name like #{key} and dep_id = #{depId} limit #{startPos},#{pageSize} 
+  </select>
+   <select id="getInfoListByPageDepJob" resultMap="BaseResultMap" >
+  select * from work where name like #{key} and dep_id = #{depId} and dep_job = #{jobId} limit #{startPos},#{pageSize} 
+  </select>
+  <select id="getInfoCount" resultType="long">
+  select count(*) from work where name like #{key}
+  </select>
+   <select id="getInfoCountByDep" resultType="long">
+  select count(*) from work where name like #{key} and dep_id = #{depId}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from work
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from work
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.personnel.entity.Work" >
+    insert into work (id, name, date, 
+      dep_id, dep_job, gmt_created, 
+      gmt_modified, remark)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{depId,jdbcType=BIGINT}, #{depJob,jdbcType=BIGINT}, #{gmtCreated,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.personnel.entity.Work" >
+    insert into work
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="depId != null" >
+        dep_id,
+      </if>
+      <if test="depJob != null" >
+        dep_job,
+      </if>
+      <if test="gmtCreated != null" >
+        gmt_created,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depId != null" >
+        #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="depJob != null" >
+        #{depJob,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreated != null" >
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.personnel.entity.Work" >
+    update work
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depId != null" >
+        dep_id = #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="depJob != null" >
+        dep_job = #{depJob,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreated != null" >
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.personnel.entity.Work" >
+    update work
+    set name = #{name,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      dep_id = #{depId,jdbcType=BIGINT},
+      dep_job = #{depJob,jdbcType=BIGINT},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

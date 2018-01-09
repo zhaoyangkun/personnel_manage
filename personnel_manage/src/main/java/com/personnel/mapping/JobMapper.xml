@@ -8,14 +8,19 @@
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dep_id" jdbcType="VARCHAR" property="depId" />
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, name, introduce, gmt_created, gmt_modified, remark
+    id, name, introduce, gmt_created, gmt_modified, remark ,dep_id
   </sql>
   
   <select id="getJobListAll" resultMap="BaseResultMap">
   	select * from job 
+  </select>
+  
+  <select id="getJobListByDep" resultMap="BaseResultMap">
+  	select * from job where dep_id = #{depId}
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

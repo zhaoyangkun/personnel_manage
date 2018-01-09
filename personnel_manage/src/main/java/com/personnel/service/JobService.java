@@ -8,4 +8,6 @@ public interface JobService {
 /*	int deleteJob(Long id);*/
 	
 	List<Job> getJobListAll();
+	
+	List<Job> getJobListByDep(Long depId);
 }

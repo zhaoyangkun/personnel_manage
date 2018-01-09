@@ -182,8 +182,8 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i>员工管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="员工基本信息管理" href="javascript:;">员工基本信息管理</a></li>
-					<li><a data-href="member-del.html" data-title="员工入职信息管理" href="javascript:;">员工入职信息管理</a></li>
+					<li><a data-href="<%=basePath %>/basicInfo/showBasic?pageNow=1" data-title="员工基本信息管理" href="javascript:;">员工基本信息管理</a></li>
+					<li><a data-href="<%=basePath %>/basicInfo/showInfo?pageNow=1" data-title="员工入职信息管理" href="javascript:;">员工入职信息管理</a></li>
 				</ul>
 		</dd>
 	</dl>

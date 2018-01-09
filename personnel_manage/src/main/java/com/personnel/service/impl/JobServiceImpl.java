@@ -26,4 +26,9 @@ public class JobServiceImpl implements JobService {
 		return jobList;
 	}
 
+	@Override
+	public List<Job> getJobListByDep(Long depId) {
+		return jobMapper.getJobListByDep(depId);
+	}
+
 }

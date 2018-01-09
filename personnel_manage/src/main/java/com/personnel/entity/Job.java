@@ -18,8 +18,20 @@ public class Job implements Serializable {
     private Date gmtModified;
 
     private String remark;
+    
+    private Long depId;
+    
+    
 
-    private static final long serialVersionUID = 1L;
+    public Long getDepId() {
+		return depId;
+	}
+
+	public void setDepId(Long depId) {
+		this.depId = depId;
+	}
+
+	private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;

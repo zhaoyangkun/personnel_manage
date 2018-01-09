@@ -19,4 +19,6 @@ public interface JobMapper {
     int updateByPrimaryKey(Job record);
     
     List<Job> getJobListAll();
+    
+    List<Job> getJobListByDep(Long depId);
 }
