@@ -38,19 +38,36 @@ public class LoginFilter implements Filter {
 		}
 		String URL = servletRequest.getRequestURI();
 		String path = servletRequest.getContextPath();  
+		String contextPath = servletRequest.getContextPath();
         String basePath = request.getScheme()+"://"+servletRequest.getServerName()+":"+servletRequest.getServerPort()+path;
-		if(URL.contains("loginDisp")) {
-			System.out.println("111111");
+        System.out.println("URL: " + URL);
+        System.out.println("contextPath: " +  contextPath);
+        if(user != null) {
+        	System.out.println("已经登录");
+        	chain.doFilter(request, response);
+        }else {
+        	if(URL.equals(contextPath + "/") || URL.contains("/loginDisp") || URL.contains("/login") ||  URL.contains("/css") || URL.contains("/H-ui") || URL.contains("/img") || URL.contains("/js")) {
+        		System.out.println("屏蔽路径");
+    			chain.doFilter(request, response);
+        	}else {
+        		System.out.println("非法URL");
+				servletResponse.sendRedirect(basePath + "/basic/loginDisp");
+        	}
+        }
+/*		if(URL.contains("/loginDisp") || URL.contains("/basic/index") ||  URL.contains("/css") || URL.contains("/H-ui") || URL.contains("/img") || URL.contains("/js")) {
+			System.out.println("屏蔽路径");
 			chain.doFilter(request, response);
+			return;
 		}		
-		if(user != null) {
-			System.out.println("222222");
-			chain.doFilter(request, response);
-		}
 		else {
-			System.out.println("3333333");
-			servletResponse.sendRedirect(basePath + "/basic/loginDisp");
-		}
+			if(user != null) {
+				System.out.println("已经登录");
+				chain.doFilter(request, response);
+			}else {
+				System.out.println("非法URL");
+				servletResponse.sendRedirect(basePath + "/basic/loginDisp");
+			}
+		}*/
 	}
 
 
