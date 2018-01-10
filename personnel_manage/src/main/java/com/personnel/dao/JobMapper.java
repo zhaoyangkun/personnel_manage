@@ -19,6 +19,11 @@ public interface JobMapper {
     int updateByPrimaryKey(Job record);
     
     List<Job> getJobListAll();
+<<<<<<< HEAD
     
     List<Job> getJobListByDep(Long depId);
+=======
+
+	List<Job> getJobListByKey(@Param(value="key")String key);
+>>>>>>> branch 'master' of https://github.com/zhaoyangkun/personnel_manage.git
 }

@@ -61,8 +61,8 @@
 					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-						<li><a href="#">切换账户</a></li>
-						<li><a href="#">退出</a></li>
+						<li><a href="<%=basePath%>/basic/loginDisp">切换账户</a></li>
+						<li><a href="<%=basePath%>/basic/quit">退出</a></li>
 				</ul>
 			</li>
 				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
@@ -182,8 +182,8 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i>员工管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="员工基本信息管理" href="javascript:;">员工基本信息管理</a></li>
-					<li><a data-href="member-del.html" data-title="员工入职信息管理" href="javascript:;">员工入职信息管理</a></li>
+					<li><a data-href="<%=basePath %>/basicInfo/showBasic?pageNow=1" data-title="员工基本信息管理" href="javascript:;">员工基本信息管理</a></li>
+					<li><a data-href="<%=basePath %>/basicInfo/showInfo?pageNow=1" data-title="员工入职信息管理" href="javascript:;">员工入职信息管理</a></li>
 				</ul>
 		</dd>
 	</dl>
@@ -192,7 +192,7 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i>工资管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="工资管理" href="javascript:void(0)">工资管理</a></li>
+					<li><a data-href="<%=basePath %>/wages/wagesList" data-title="工资管理" href="javascript:void(0)">工资管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -201,7 +201,7 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i>奖惩记录管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="奖惩记录管理" href="javascript:void(0)">奖惩记录管理</a></li>
+					<li><a data-href="<%=basePath %>/reward/rewardList" data-title="奖惩记录管理" href="javascript:void(0)">奖惩记录管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -210,7 +210,7 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i>考勤信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="考勤信息管理" href="javascript:void(0)">考勤信息管理</a></li>
+					<li><a data-href="<%=basePath %>/attendance/attendanceList" data-title="考勤信息管理" href="javascript:void(0)">考勤信息管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -219,7 +219,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i>调动信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="调动信息管理" href="javascript:;">调动信息管理</a></li>
+					<li><a data-href="<%=basePath %>/transfer/transferList" data-title="调动信息管理" href="javascript:;">调动信息管理</a></li>
 				</ul>
 		</dd>
 	</dl>
@@ -237,7 +237,7 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i> 职务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="部门管理" href="javascript:;">职务管理</a></li>
+					<li><a data-href="<%=basePath %>/job/jobList" data-title="职务管理" href="javascript:;">职务管理</a></li>
 			</ul>
 		</dd>
 	</dl>

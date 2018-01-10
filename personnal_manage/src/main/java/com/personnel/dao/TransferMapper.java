@@ -18,4 +18,5 @@ public interface TransferMapper {
     int updateByPrimaryKey(Transfer record);
     
     List<Transfer> getTransferListAll();
+    
 }

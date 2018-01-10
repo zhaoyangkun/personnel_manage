@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personnel.dao.RewardMapper">
+  <resultMap id="BaseResultMap" type="com.personnel.entity.Reward">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="reward" jdbcType="INTEGER" property="reward" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="approval_dep" jdbcType="VARCHAR" property="approvalDep" />
+    <result column="head" jdbcType="VARCHAR" property="head" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+ 
+ 
+  <sql id="Base_Column_List">
+    id, emp_id, name, department, reward, content, reason, amount, approval_dep, head, 
+    gmt_created, gmt_modified, remark
+  </sql>
+  
+   <select id="getRewardListAll" resultMap="BaseResultMap">
+  	select * from reward
+  </select>
+  
+  <select id ="getRewardListByKey"  resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from reward as rd
+  	<if test = "key !=null and key !=''">
+  		where rd.emp_id = #{key,jdbcType=BIGINT} or
+  		rd.name like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or
+  		rd.reward = #{key,jdbcType=INTEGER} or
+  		rd.content like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or
+  		rd.reason  like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or
+  		rd.amount = #{key,jdbcType=INTEGER} or
+  		rd.approval_dep like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or
+  		rd.head like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or
+  		rd.remark like CONCAT('%',#{key,jdbcType=VARCHAR},'%') 
+  	</if>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from reward
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from reward
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.personnel.entity.Reward">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into reward (emp_id, name, department, 
+      reward, content, reason, 
+      amount, approval_dep, head, 
+      gmt_created, gmt_modified, remark
+      )
+    values (#{empId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},#{department,jdbcType=VARCHAR},
+      #{reward,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=INTEGER}, #{approvalDep,jdbcType=VARCHAR}, #{head,jdbcType=VARCHAR}, 
+      #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.personnel.entity.Reward">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into reward
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="reward != null">
+        reward,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="approvalDep != null">
+        approval_dep,
+      </if>
+      <if test="head != null">
+        head,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="reward != null">
+        #{reward,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="approvalDep != null">
+        #{approvalDep,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null">
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.personnel.entity.Reward">
+    update reward
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="reward != null">
+        reward = #{reward,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="approvalDep != null">
+        approval_dep = #{approvalDep,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null">
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.personnel.entity.Reward">
+    update reward
+    set emp_id = #{empId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      department = #{record.department,jdbcType=VARCHAR},
+      reward = #{reward,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=INTEGER},
+      approval_dep = #{approvalDep,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -13,11 +13,6 @@ import com.personnel.service.JobService;
 @Service
 public class JobServiceImpl implements JobService {
 	@Autowired JobMapper jobMapper;
-	
-/*	@Override
-	public int deleteJob(Long id) {
-		return 0;
-	}*/
 
 	@Override
 	public List<Job> getJobListAll() {
@@ -25,5 +20,34 @@ public class JobServiceImpl implements JobService {
 		jobList = jobMapper.getJobListAll();
 		return jobList;
 	}
+	
+	@Override
+	public int addJob(Job record){
+		return jobMapper.insertSelective(record);
+	}
 
+	@Override
+	public int deleteJob(Long id) {
+		return jobMapper.deleteByPrimaryKey(id);
+	}
+	
+	@Override
+	public Job getJobById(Long id) {
+		return jobMapper.selectByPrimaryKey(id);		
+	}
+	
+	@Override
+	public int updateJob(Job record) {
+		return jobMapper.updateByPrimaryKeySelective(record);
+	}
+	
+	@Override
+	public List<Job> getJobListByKey(String key){
+		return jobMapper.getJobListByKey(key);
+	}
+
+	@Override
+	public List<Job> getJobListByDep(Long depId) {
+		return null;
+	}
 }

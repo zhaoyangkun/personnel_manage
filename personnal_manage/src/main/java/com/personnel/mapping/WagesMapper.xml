@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personnel.dao.WagesMapper">
+  <resultMap id="BaseResultMap" type="com.personnel.entity.Wages">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dep_id" jdbcType="INTEGER" property="depId" />
+    <result column="reward" jdbcType="INTEGER" property="reward" />
+    <result column="basepay" jdbcType="INTEGER" property="basepay" />
+    <result column="jbbt" jdbcType="INTEGER" property="jbbt" />
+    <result column="gjj" jdbcType="INTEGER" property="gjj" />
+    <result column="ylj" jdbcType="INTEGER" property="ylj" />
+    <result column="sds" jdbcType="INTEGER" property="sds" />
+    <result column="yfgz" jdbcType="INTEGER" property="yfgz" />
+    <result column="sjgz" jdbcType="INTEGER" property="sjgz" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List">
+    id, emp_id, name, dep_id,reward, basepay, jbbt, gjj, ylj, sds, yfgz, sjgz, gmt_created, 
+    gmt_modified, remark
+  </sql>
+ 
+ <select id="getWagesListAll" resultMap="BaseResultMap">
+  	select * from wages
+  </select>
+  
+  <select id="getWagesListByKey" resultMap="BaseResultMap">
+  	select * from wages as wg 
+  	<if test="key != null and key != ''">
+  		where wg.emp_id like CONCAT('%',#{key,jdbcType=BIGINT},'%') or wg.name like CONCAT('%',#{key,jdbcType=INTEGER},'%') or wg.dep_id like CONCAT('%',#{key,jdbcType=INTEGER},'%')
+  	</if>	
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wages
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wages
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.personnel.entity.Wages">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wages (emp_id, name, dep_id,reward, 
+      basepay, jbbt, 
+      gjj, ylj, sds, yfgz, 
+      sjgz, gmt_created, gmt_modified, 
+      remark)
+    values (#{empId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{depId,jdbcType=INTEGER}, #{reward,jdbcType=INTEGER},
+      #{basepay,jdbcType=INTEGER}, #{jbbt,jdbcType=INTEGER}, 
+      #{gjj,jdbcType=INTEGER}, #{ylj,jdbcType=INTEGER}, #{sds,jdbcType=INTEGER}, #{yfgz,jdbcType=INTEGER}, 
+      #{sjgz,jdbcType=INTEGER}, #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.personnel.entity.Wages">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into wages
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="depId != null">
+        dep_id,
+      </if>
+      <if test="reward != null">
+        reward,
+      </if>
+      <if test="basepay != null">
+        basepay,
+      </if>
+      <if test="jbbt != null">
+        jbbt,
+      </if>
+      <if test="gjj != null">
+        gjj,
+      </if>
+      <if test="ylj != null">
+        ylj,
+      </if>
+      <if test="sds != null">
+        sds,
+      </if>
+      <if test="yfgz != null">
+        yfgz,
+      </if>
+      <if test="sjgz != null">
+        sjgz,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null">
+        #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="reward != null">
+        #{reward,jdbcType=INTEGER},
+      </if>
+      <if test="basepay != null">
+        #{basepay,jdbcType=INTEGER},
+      </if>
+      <if test="jbbt != null">
+        #{jbbt,jdbcType=INTEGER},
+      </if>
+      <if test="gjj != null">
+        #{gjj,jdbcType=INTEGER},
+      </if>
+      <if test="ylj != null">
+        #{ylj,jdbcType=INTEGER},
+      </if>
+      <if test="sds != null">
+        #{sds,jdbcType=INTEGER},
+      </if>
+      <if test="yfgz != null">
+        #{yfgz,jdbcType=INTEGER},
+      </if>
+      <if test="sjgz != null">
+        #{sjgz,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.personnel.entity.Wages">
+    update wages
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="depId != null">
+        dep_id = #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="reward != null">
+        reward = #{reward,jdbcType=INTEGER},
+      </if>
+      <if test="basepay != null">
+        basepay = #{basepay,jdbcType=INTEGER},
+      </if>
+      <if test="jbbt != null">
+        jbbt = #{jbbt,jdbcType=INTEGER},
+      </if>
+      <if test="gjj != null">
+        gjj = #{gjj,jdbcType=INTEGER},
+      </if>
+      <if test="ylj != null">
+        ylj = #{ylj,jdbcType=INTEGER},
+      </if>
+      <if test="sds != null">
+        sds = #{sds,jdbcType=INTEGER},
+      </if>
+      <if test="yfgz != null">
+        yfgz = #{yfgz,jdbcType=INTEGER},
+      </if>
+      <if test="sjgz != null">
+        sjgz = #{sjgz,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.personnel.entity.Wages">
+    update wages
+    set emp_id = #{empId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      dep_id = #{depId,jdbcType=INTEGER},
+      reward = #{reward,jdbcType=INTEGER},
+      basepay = #{basepay,jdbcType=INTEGER},
+      jbbt = #{jbbt,jdbcType=INTEGER},
+      gjj = #{gjj,jdbcType=INTEGER},
+      ylj = #{ylj,jdbcType=INTEGER},
+      sds = #{sds,jdbcType=INTEGER},
+      yfgz = #{yfgz,jdbcType=INTEGER},
+      sjgz = #{sjgz,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

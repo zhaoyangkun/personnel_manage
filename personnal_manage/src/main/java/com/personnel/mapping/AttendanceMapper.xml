@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.personnel.dao.AttendanceMapper">
+
+  <resultMap id="BaseResultMap" type="com.personnel.entity.Attendance">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <result column="attendance_day" jdbcType="INTEGER" property="attendanceDay" />
+    <result column="vocation_day" jdbcType="INTEGER" property="vocationDay" />
+    <result column="vocation_overtime" jdbcType="INTEGER" property="vocationOvertime" />
+    <result column="daily_overtime" jdbcType="INTEGER" property="dailyOvertime" />
+    <result column="leave_day" jdbcType="INTEGER" property="leaveDay" />
+    <result column="month_day" jdbcType="INTEGER" property="monthDay" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+  
+  
+  
+  <sql id="Base_Column_List">
+    id, emp_id, attendance_day, vocation_day, vocation_overtime, daily_overtime, leave_day, 
+    month_day, gmt_created, gmt_modified, remark
+  </sql>
+  
+    <select id="getAttendanceListAll" resultMap="BaseResultMap">
+  		select * from attendance
+  	</select>
+  	
+  	<select id="getAttendanceListByKey" resultMap="BaseResultMap">
+  		select * from attendance as ad
+  		<if test="key != null and key != ''">
+  			where ad.emp_id like CONCAT('%',#{key,jdbcType=BIGINT},'%') 
+  		</if>
+  	</select>
+  	
+  	<select id="getAttendanceByEid" resultMap="BaseResultMap"  parameterType="java.lang.Long">
+  		select * from attendance where emp_id = #{Eid,jdbcType=BIGINT};
+  	</select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attendance
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from attendance
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  
+  
+  
+  <insert id="insert" parameterType="com.personnel.entity.Attendance">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into attendance (emp_id, attendance_day, vocation_day, 
+      vocation_overtime, daily_overtime, leave_day, 
+      month_day, gmt_created, gmt_modified, 
+      remark)
+    values (#{empId,jdbcType=BIGINT}, #{attendanceDay,jdbcType=INTEGER}, #{vocationDay,jdbcType=INTEGER}, 
+      #{vocationOvertime,jdbcType=INTEGER}, #{dailyOvertime,jdbcType=INTEGER}, #{leaveDay,jdbcType=INTEGER}, 
+      #{monthDay,jdbcType=INTEGER}, #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.personnel.entity.Attendance">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into attendance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="attendanceDay != null">
+        attendance_day,
+      </if>
+      <if test="vocationDay != null">
+        vocation_day,
+      </if>
+      <if test="vocationOvertime != null">
+        vocation_overtime,
+      </if>
+      <if test="dailyOvertime != null">
+        daily_overtime,
+      </if>
+      <if test="leaveDay != null">
+        leave_day,
+      </if>
+      <if test="monthDay != null">
+        month_day,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceDay != null">
+        #{attendanceDay,jdbcType=INTEGER},
+      </if>
+      <if test="vocationDay != null">
+        #{vocationDay,jdbcType=INTEGER},
+      </if>
+      <if test="vocationOvertime != null">
+        #{vocationOvertime,jdbcType=INTEGER},
+      </if>
+      <if test="dailyOvertime != null">
+        #{dailyOvertime,jdbcType=INTEGER},
+      </if>
+      <if test="leaveDay != null">
+        #{leaveDay,jdbcType=INTEGER},
+      </if>
+      <if test="monthDay != null">
+        #{monthDay,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.personnel.entity.Attendance">
+    update attendance
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="attendanceDay != null">
+        attendance_day = #{attendanceDay,jdbcType=INTEGER},
+      </if>
+      <if test="vocationDay != null">
+        vocation_day = #{vocationDay,jdbcType=INTEGER},
+      </if>
+      <if test="vocationOvertime != null">
+        vocation_overtime = #{vocationOvertime,jdbcType=INTEGER},
+      </if>
+      <if test="dailyOvertime != null">
+        daily_overtime = #{dailyOvertime,jdbcType=INTEGER},
+      </if>
+      <if test="leaveDay != null">
+        leave_day = #{leaveDay,jdbcType=INTEGER},
+      </if>
+      <if test="monthDay != null">
+        month_day = #{monthDay,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.personnel.entity.Attendance">
+    update attendance
+    set emp_id = #{empId,jdbcType=BIGINT},
+      attendance_day = #{attendanceDay,jdbcType=INTEGER},
+      vocation_day = #{vocationDay,jdbcType=INTEGER},
+      vocation_overtime = #{vocationOvertime,jdbcType=INTEGER},
+      daily_overtime = #{dailyOvertime,jdbcType=INTEGER},
+      leave_day = #{leaveDay,jdbcType=INTEGER},
+      month_day = #{monthDay,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

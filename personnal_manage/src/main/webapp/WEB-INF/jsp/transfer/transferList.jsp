@@ -39,7 +39,7 @@
  		<%if(user.getpermissions() == 1){ %>
 			<span class="l"> 
 				<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-				<a class="btn btn-primary radius" href="javascript:;" onclick="department_add('添加部门','<%=basePath%>/department/departmentAddDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a> 
+				<a class="btn btn-primary radius" href="javascript:;" onclick="transfer_add('添加调动信息','<%=basePath%>/transfer/AddTransferDisp','','510')"><i class="Hui-iconfont">&#xe600;</i> 添加调动信息</a> 
 			</span>
 		<%}%>
 		<%if(user.getpermissions() == 2){ %>
@@ -48,8 +48,8 @@
 				<a class="btn btn-primary radius" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a> 
 			</span>
 		<% }%>
-		<input type="text" class="input-text" style="width:250px" placeholder="请输入关键字" id="search" name="" value="" />
-    	<button type="button" class="btn btn-success" id="search" name="search" onclick="search()"><i class="icon-search"></i> 搜索</button> 
+		<!-- <input type="text" class="input-text" style="width:250px" placeholder="请输入关键字" id="search" name="" value="" />
+    	<button type="button" class="btn btn-success" id="search" name="search" onclick="search()"><i class="icon-search"></i> 搜索</button>  -->
 		<span class="r">共有数据：<strong>${totalNumber }</strong> 条</span> 
 	</div>
 	
@@ -66,31 +66,59 @@
 				<th width="60">调动前职务</th>	
 				<th width="60">调动后职务</th>	
 				<th width="110">调动理由</th>	
-				<th width="60">员工</th>
 				<th width="20">审核结果</th>
 				<th width="40">审核人</th>
-				<th width="40">备注</th>
 				<th width="70">操作</th>
 			</tr>
 		</thead>
 		
 		<tbody>
-			<c:forEach items="${departmentList}" var="list" varStatus="state">
+			<c:forEach items="${transferList }" var="list" varStatus="state">
 				<tr class="text-c">
 					<td><input type="checkbox" value="${list.id }" name="id"></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>${list.name }</td>
+					<td>
+						<c:forEach items="${departmentList }" var="dlist">
+							<c:if test="${dlist.id == list.beforeDepId }">
+								${dlist.name }
+							</c:if>
+						</c:forEach>
+					</td>
+					<td>
+						<c:forEach items="${departmentList }" var="dlist">
+							<c:if test="${dlist.id == list.laterDepId }">
+								${dlist.name }
+							</c:if>
+						</c:forEach>
+					</td>
+					<td>
+						<c:forEach items="${jobList }" var="jlist">
+							<c:if test="${jlist.id == list.beforeJobId }">
+								${jlist.name }
+							</c:if>
+						</c:forEach>
+					</td>
+					<td>
+						<c:forEach items="${jobList }" var="jlist">
+							<c:if test="${jlist.id == list.laterJobId }">
+								${jlist.name }
+							</c:if>
+						</c:forEach>
+					</td>
+					<td>${list.reason }</td>
+					<td>
+						<c:if test="${list.result == 0 }">
+							未通过
+						</c:if>
+						<c:if test="${list.result == 1 }">
+							通过
+						</c:if>
+					</td>
+					<td>${list.auditor }</td>
 					<td class="f-14">
 						<c:if test="${sessionScope.user.permissions == 1 }">
-							<a title="编辑" href="javascript:;" onclick="department_edit('部门编辑','<%=basePath%>/department/editDepartmentDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-							<a title="删除" href="javascript:;" onclick="department_del(this,${list.id })" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+							<a title="编辑" href="javascript:;" onclick="transfer_edit('部门编辑','<%=basePath%>/transfer/editTransferDisp?id=${list.id }','','510')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
+							<a title="删除" href="javascript:;" onclick="transfer_del(this,'${list.id }')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 						</c:if>
 						<c:if test="${sessionScope.user.permissions == 2 }">
 							<a title="编辑" href="javascript:;" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
@@ -137,10 +165,10 @@ function transfer_edit(title,url,id,w,h){
 }
 
 function transfer_del(obj,id){
-	layer.confirm('确认要删除部门吗？',function(index){
+	layer.confirm('确认要删除调动信息吗？',function(index){
 		$.ajax({
 			type:'POST',
-			url:'${pageContext.request.contextPath}/department/deleteDepartment',
+			url:'${pageContext.request.contextPath}/transfer/deleteTransfer',
 			data:{"id":id},
 			dataType:'json',
 			success: function(data){

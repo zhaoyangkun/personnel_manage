@@ -19,8 +19,16 @@
   	select * from job 
   </select>
   
+<<<<<<< HEAD
   <select id="getJobListByDep" resultMap="BaseResultMap">
   	select * from job where dep_id = #{depId}
+=======
+    <select id="getJobListByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from job 
+  	<if test = "key !=null and key !=''">
+  		where job.name like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or job.introduce like CONCAT('%',#{key,jdbcType=VARCHAR},'%')
+  	</if>
+>>>>>>> branch 'master' of https://github.com/zhaoyangkun/personnel_manage.git
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

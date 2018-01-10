@@ -8,6 +8,7 @@
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dep_id" jdbcType="VARCHAR" property="depId" />
   </resultMap>
   
   <sql id="Base_Column_List">
@@ -16,6 +17,17 @@
   
   <select id="getJobListAll" resultMap="BaseResultMap">
   	select * from job 
+  </select>
+  
+   <select id="getJobListByDep" resultMap="BaseResultMap">
+  	select * from job where dep_id = #{depId}
+  </select>
+  
+  <select id="getJobListByKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select * from job 
+  	<if test = "key !=null and key !=''">
+  		where job.name like CONCAT('%',#{key,jdbcType=VARCHAR},'%') or job.introduce like CONCAT('%',#{key,jdbcType=VARCHAR},'%')
+  	</if>
   </select>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

@@ -3,7 +3,7 @@ package com.personnel.entity;
 import java.io.Serializable;
 
 /**
- * @author 
+ * @author zhaoyangkun
  */
 public class Transfer implements Serializable {
     private Long id;

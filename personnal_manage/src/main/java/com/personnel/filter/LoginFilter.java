@@ -32,17 +32,23 @@ public class LoginFilter implements Filter {
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
 		HttpServletResponse servletResponse = (HttpServletResponse) response;
 		HttpSession session = servletRequest.getSession(true);
-		User user = (User) session.getAttribute("user");
+		User user = null;
+		if(session != null) {
+			user = (User) session.getAttribute("user");
+		}
 		String URL = servletRequest.getRequestURI();
 		String path = servletRequest.getContextPath();  
-        String basePath = request.getScheme()+"://"+servletRequest.getServerName()+":"+servletRequest.getServerPort()+path;  
-		if(URL.indexOf("/loginDisp") > -1) {
+        String basePath = request.getScheme()+"://"+servletRequest.getServerName()+":"+servletRequest.getServerPort()+path;
+		if(URL.contains("loginDisp")) {
+			System.out.println("111111");
 			chain.doFilter(request, response);
 		}		
-		if(user.getId() != null) {
-			/*chain.doFilter(request, response);*/
+		if(user != null) {
+			System.out.println("222222");
+			chain.doFilter(request, response);
 		}
 		else {
+			System.out.println("3333333");
 			servletResponse.sendRedirect(basePath + "/basic/loginDisp");
 		}
 	}
