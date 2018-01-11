@@ -54,20 +54,6 @@ public class LoginFilter implements Filter {
 				servletResponse.sendRedirect(basePath + "/basic/loginDisp");
         	}
         }
-/*		if(URL.contains("/loginDisp") || URL.contains("/basic/index") ||  URL.contains("/css") || URL.contains("/H-ui") || URL.contains("/img") || URL.contains("/js")) {
-			System.out.println("屏蔽路径");
-			chain.doFilter(request, response);
-			return;
-		}		
-		else {
-			if(user != null) {
-				System.out.println("已经登录");
-				chain.doFilter(request, response);
-			}else {
-				System.out.println("非法URL");
-				servletResponse.sendRedirect(basePath + "/basic/loginDisp");
-			}
-		}*/
 	}
 
 
